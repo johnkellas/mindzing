@@ -1243,6 +1243,304 @@ footer {
 }
 
 /* ═══════════════════════════════════════════
+   DRAFT BANNER
+   ═══════════════════════════════════════════ */
+.draft-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1100;
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--coral),
+    var(--coral) 10px,
+    #d4584a 10px,
+    #d4584a 20px
+  );
+  color: var(--white);
+  text-align: center;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  padding: 0.4rem 0;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+nav { top: 28px; }
+nav.scrolled { top: 28px; }
+
+/* ═══════════════════════════════════════════
+   RESOURCE TOOLTIP / POPUP MODAL
+   ═══════════════════════════════════════════ */
+.tooltip-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 43, 60, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 2000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.tooltip-overlay.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.tooltip-popup {
+  background: var(--white);
+  border-radius: 24px;
+  max-width: 620px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 2.5rem;
+  position: relative;
+  transform: translateY(20px) scale(0.97);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 30px 80px rgba(15, 43, 60, 0.18), 0 0 0 1px rgba(200, 190, 175, 0.12);
+}
+
+.tooltip-overlay.visible .tooltip-popup {
+  transform: translateY(0) scale(1);
+}
+
+.tooltip-popup::-webkit-scrollbar {
+  width: 5px;
+}
+
+.tooltip-popup::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.tooltip-popup::-webkit-scrollbar-thumb {
+  background: rgba(200, 190, 175, 0.3);
+  border-radius: 3px;
+}
+
+.tooltip-close {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(200, 190, 175, 0.12);
+  color: var(--text-soft);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+  z-index: 1;
+}
+
+.tooltip-close:hover {
+  background: rgba(232, 116, 97, 0.12);
+  color: var(--coral);
+}
+
+.tooltip-type-bar {
+  height: 4px;
+  border-radius: 2px;
+  margin-bottom: 1.8rem;
+  width: 60px;
+}
+
+.tooltip-type-bar[data-type="guide"] { background: linear-gradient(90deg, var(--ocean), var(--ocean-light)); }
+.tooltip-type-bar[data-type="audio"] { background: linear-gradient(90deg, var(--lavender), var(--coral-soft)); }
+.tooltip-type-bar[data-type="video"] { background: linear-gradient(90deg, var(--coral), var(--gold)); }
+.tooltip-type-bar[data-type="research"] { background: linear-gradient(90deg, var(--sage), var(--ocean-light)); }
+.tooltip-type-bar[data-type="toolkit"] { background: linear-gradient(90deg, var(--gold), var(--coral-soft)); }
+.tooltip-type-bar[data-type="exercise"] { background: linear-gradient(90deg, var(--rose), var(--lavender)); }
+
+.tooltip-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+.tooltip-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  background: rgba(45, 122, 138, 0.08);
+}
+
+.tooltip-header-text h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--navy);
+  line-height: 1.3;
+  margin-bottom: 0.35rem;
+}
+
+.tooltip-header-text .tooltip-author {
+  font-size: 0.82rem;
+  color: var(--text-soft);
+  font-style: italic;
+}
+
+.tooltip-body {
+  margin-bottom: 1.5rem;
+}
+
+.tooltip-body p {
+  font-size: 0.92rem;
+  color: var(--text-soft);
+  line-height: 1.75;
+  margin-bottom: 0.8rem;
+}
+
+.tooltip-detail-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  margin-bottom: 0.6rem;
+  margin-top: 1.6rem;
+}
+
+.tooltip-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.tooltip-tags span {
+  font-size: 0.72rem;
+  padding: 0.25rem 0.7rem;
+  border-radius: 100px;
+  background: rgba(45, 122, 138, 0.07);
+  color: var(--ocean-deep);
+  font-weight: 500;
+}
+
+/* Reference links */
+.tooltip-references {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.tooltip-ref {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  background: rgba(200, 190, 175, 0.06);
+  border: 1px solid rgba(200, 190, 175, 0.1);
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.tooltip-ref:hover {
+  background: rgba(45, 122, 138, 0.06);
+  border-color: rgba(45, 122, 138, 0.15);
+  transform: translateX(3px);
+}
+
+.tooltip-ref-icon {
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.tooltip-ref-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.tooltip-ref-title {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--ocean-deep);
+  line-height: 1.35;
+}
+
+.tooltip-ref-source {
+  font-size: 0.7rem;
+  color: var(--cliff);
+}
+
+.tooltip-ref-link {
+  font-size: 0.68rem;
+  color: var(--ocean-light);
+  word-break: break-all;
+}
+
+.tooltip-footer {
+  margin-top: 1.8rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(200, 190, 175, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tooltip-free-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.9rem;
+  border-radius: 100px;
+  background: rgba(143, 168, 135, 0.12);
+  color: var(--sage-deep);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.tooltip-access-btn {
+  display: inline-block;
+  padding: 0.65rem 1.6rem;
+  border-radius: 100px;
+  background: var(--ocean-deep);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tooltip-access-btn:hover {
+  background: var(--ocean);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(45, 122, 138, 0.25);
+}
+
+@media (max-width: 768px) {
+  .tooltip-overlay { padding: 1rem; }
+  .tooltip-popup { padding: 1.5rem; border-radius: 18px; max-height: 90vh; }
+  .tooltip-header { flex-direction: column; }
+}
+
+/* ═══════════════════════════════════════════
    RESPONSIVE
    ═══════════════════════════════════════════ */
 @media (max-width: 768px) {
@@ -1294,6 +1592,9 @@ footer {
   <span class="symbol symbol-sun" style="top:45%;left:92%;animation-delay:1.2s">○</span>
   <span class="symbol symbol-wave" style="top:92%;right:15%;animation-delay:0.3s">~ ~</span>
 </div>
+
+<!-- Draft Banner -->
+<div class="draft-banner">DRAFT</div>
 
 <!-- Navigation -->
 <nav id="nav">
@@ -1593,7 +1894,7 @@ footer {
   <div class="resources-grid" id="resourcesGrid">
 
     <!-- GUIDES -->
-    <div class="resource-card" data-type="guide">
+    <div class="resource-card" data-type="guide" onclick="openTooltip('starter-guide')">
       <div class="resource-card-top">
         <div class="resource-icon">📖</div>
         <span class="resource-badge badge-free">Free</span>
@@ -1607,10 +1908,10 @@ footer {
       </div>
     </div>
 
-    <div class="resource-card" data-type="guide">
+    <div class="resource-card" data-type="guide" onclick="openTooltip('flow-states')">
       <div class="resource-card-top">
         <div class="resource-icon">📖</div>
-        <span class="resource-badge badge-popular">Popular</span>
+        <span class="resource-badge badge-free">Free</span>
       </div>
       <h3>Flow States: A Practitioner's Field Guide</h3>
       <p>How to reliably enter and sustain flow. Synthesises Csíkszentmihályi's research with practical triggers you can deploy in creative work, sport, or deep thinking.</p>
@@ -1621,7 +1922,7 @@ footer {
       </div>
     </div>
 
-    <div class="resource-card" data-type="guide">
+    <div class="resource-card" data-type="guide" onclick="openTooltip('placebo-lever')">
       <div class="resource-card-top">
         <div class="resource-icon">📖</div>
         <span class="resource-badge badge-free">Free</span>
@@ -1635,10 +1936,10 @@ footer {
       </div>
     </div>
 
-    <div class="resource-card" data-type="guide">
+    <div class="resource-card" data-type="guide" onclick="openTooltip('cognitive-defusion')">
       <div class="resource-card-top">
         <div class="resource-icon">📖</div>
-        <span class="resource-badge badge-premium">Premium</span>
+        <span class="resource-badge badge-free">Free</span>
       </div>
       <h3>Cognitive Defusion: Unsticking Thought Patterns</h3>
       <p>ACT-based techniques for creating distance from unhelpful thought loops. Includes daily practice sequences and journaling prompts grounded in clinical research.</p>
@@ -1650,7 +1951,7 @@ footer {
     </div>
 
     <!-- AUDIO -->
-    <div class="resource-card" data-type="audio">
+    <div class="resource-card" data-type="audio" onclick="openTooltip('ocean-cliff-dawn')">
       <div class="resource-card-top">
         <div class="resource-icon">🎧</div>
         <span class="resource-badge badge-free">Free</span>
@@ -1664,10 +1965,10 @@ footer {
       </div>
     </div>
 
-    <div class="resource-card" data-type="audio">
+    <div class="resource-card" data-type="audio" onclick="openTooltip('body-scan')">
       <div class="resource-card-top">
         <div class="resource-icon">🎧</div>
-        <span class="resource-badge badge-popular">Popular</span>
+        <span class="resource-badge badge-free">Free</span>
       </div>
       <h3>Guided Body Scan for Clarity</h3>
       <p>A 12-minute guided practice drawing on progressive muscle relaxation and interoceptive awareness. Evidence shows regular body scans reduce cortisol by 23%.</p>
@@ -1678,10 +1979,10 @@ footer {
       </div>
     </div>
 
-    <div class="resource-card" data-type="audio">
+    <div class="resource-card" data-type="audio" onclick="openTooltip('sleep-reset')">
       <div class="resource-card-top">
         <div class="resource-icon">🎧</div>
-        <span class="resource-badge badge-premium">Premium</span>
+        <span class="resource-badge badge-free">Free</span>
       </div>
       <h3>Sleep Architecture Reset — 8-Phase Descent</h3>
       <p>A carefully sequenced 35-minute audio journey through progressive relaxation phases, calibrated to your natural sleep onset cycle. Pink noise + delta entrainment.</p>
@@ -1692,10 +1993,10 @@ footer {
       </div>
     </div>
 
-    <div class="resource-card" data-type="audio">
+    <div class="resource-card" data-type="audio" onclick="openTooltip('wildflower-meadow')">
       <div class="resource-card-top">
         <div class="resource-icon">🎧</div>
-        <span class="resource-badge badge-new">New</span>
+        <span class="resource-badge badge-free">Free</span>
       </div>
       <h3>Wildflower Meadow — Deep Focus Mix</h3>
       <p>Layered nature synthesis: meadow insects, gentle breeze through grass, distant birdsong. Tuned to support sustained attention without distraction peaks.</p>
@@ -1707,7 +2008,7 @@ footer {
     </div>
 
     <!-- VIDEO -->
-    <div class="resource-card" data-type="video">
+    <div class="resource-card" data-type="video" onclick="openTooltip('intro-talk')">
       <div class="resource-card-top">
         <div class="resource-icon">🎬</div>
         <span class="resource-badge badge-free">Free</span>
@@ -1721,10 +2022,10 @@ footer {
       </div>
     </div>
 
-    <div class="resource-card" data-type="video">
+    <div class="resource-card" data-type="video" onclick="openTooltip('breath-architecture')">
       <div class="resource-card-top">
         <div class="resource-icon">🎬</div>
-        <span class="resource-badge badge-popular">Popular</span>
+        <span class="resource-badge badge-free">Free</span>
       </div>
       <h3>Breath as Architecture — Workshop Recording</h3>
       <p>Full recording from our February MindZing Morning. Explores how different breathing patterns create distinct cognitive states, with live practice segments.</p>
@@ -1735,10 +2036,10 @@ footer {
       </div>
     </div>
 
-    <div class="resource-card" data-type="video">
+    <div class="resource-card" data-type="video" onclick="openTooltip('micro-practices')">
       <div class="resource-card-top">
         <div class="resource-icon">🎬</div>
-        <span class="resource-badge badge-premium">Premium</span>
+        <span class="resource-badge badge-free">Free</span>
       </div>
       <h3>Micro-Practices for the Workday</h3>
       <p>Six 2-minute interventions you can deploy between meetings: peripheral vision reset, vagal tone activation, attentional pivots, and cognitive clearing techniques.</p>
@@ -1749,10 +2050,10 @@ footer {
       </div>
     </div>
 
-    <div class="resource-card" data-type="video">
+    <div class="resource-card" data-type="video" onclick="openTooltip('awe-walks')">
       <div class="resource-card-top">
         <div class="resource-icon">🎬</div>
-        <span class="resource-badge badge-new">New</span>
+        <span class="resource-badge badge-free">Free</span>
       </div>
       <h3>Awe Walks: The Science of Wonder</h3>
       <p>A guided video walk exploring how deliberate exposure to vastness and beauty triggers measurable shifts in inflammation markers, time perception, and prosocial behaviour.</p>
@@ -1764,7 +2065,7 @@ footer {
     </div>
 
     <!-- RESEARCH DIGESTS -->
-    <div class="resource-card" data-type="research">
+    <div class="resource-card" data-type="research" onclick="openTooltip('dmn-creativity')">
       <div class="resource-card-top">
         <div class="resource-icon">🔬</div>
         <span class="resource-badge badge-free">Free</span>
@@ -1778,7 +2079,7 @@ footer {
       </div>
     </div>
 
-    <div class="resource-card" data-type="research">
+    <div class="resource-card" data-type="research" onclick="openTooltip('nature-exposure')">
       <div class="resource-card-top">
         <div class="resource-icon">🔬</div>
         <span class="resource-badge badge-free">Free</span>
@@ -1792,10 +2093,10 @@ footer {
       </div>
     </div>
 
-    <div class="resource-card" data-type="research">
+    <div class="resource-card" data-type="research" onclick="openTooltip('placebo-nocebo')">
       <div class="resource-card-top">
         <div class="resource-icon">🔬</div>
-        <span class="resource-badge badge-new">New</span>
+        <span class="resource-badge badge-free">Free</span>
       </div>
       <h3>Placebo, Nocebo & Expectation: What Practitioners Should Know</h3>
       <p>A critical review of the expectation effects literature. When does belief-driven improvement count? Ethical considerations for community facilitators working with subjective experience.</p>
@@ -1806,10 +2107,10 @@ footer {
       </div>
     </div>
 
-    <div class="resource-card" data-type="research">
+    <div class="resource-card" data-type="research" onclick="openTooltip('hrv-biofeedback')">
       <div class="resource-card-top">
         <div class="resource-icon">🔬</div>
-        <span class="resource-badge badge-premium">Premium</span>
+        <span class="resource-badge badge-free">Free</span>
       </div>
       <h3>HRV Biofeedback & Self-Regulation: A Practitioner's Summary</h3>
       <p>Heart rate variability as a real-time window into autonomic balance. What the research says about resonance frequency breathing and why it works for anxiety and performance.</p>
@@ -1821,10 +2122,10 @@ footer {
     </div>
 
     <!-- TOOLKITS -->
-    <div class="resource-card" data-type="toolkit">
+    <div class="resource-card" data-type="toolkit" onclick="openTooltip('workshop-box')">
       <div class="resource-card-top">
         <div class="resource-icon">🧰</div>
-        <span class="resource-badge badge-premium">Premium</span>
+        <span class="resource-badge badge-free">Free</span>
       </div>
       <h3>Workshop-in-a-Box: Morning Clarity Ritual</h3>
       <p>Everything you need to run a 90-minute MindZing Morning: facilitator script, participant handouts, follow-up emails, ambient playlist, and evidence notes for Q&A.</p>
@@ -1835,10 +2136,10 @@ footer {
       </div>
     </div>
 
-    <div class="resource-card" data-type="toolkit">
+    <div class="resource-card" data-type="toolkit" onclick="openTooltip('corporate-kit')">
       <div class="resource-card-top">
         <div class="resource-icon">🧰</div>
-        <span class="resource-badge badge-premium">Premium</span>
+        <span class="resource-badge badge-free">Free</span>
       </div>
       <h3>Corporate Session Kit: Stress to Clarity</h3>
       <p>A half-day workshop package for workplace delivery. Includes slide deck, facilitator guide, participant workbook, pre/post assessment tools, and ROI measurement framework.</p>
@@ -1849,7 +2150,7 @@ footer {
       </div>
     </div>
 
-    <div class="resource-card" data-type="toolkit">
+    <div class="resource-card" data-type="toolkit" onclick="openTooltip('meetup-starter')">
       <div class="resource-card-top">
         <div class="resource-icon">🧰</div>
         <span class="resource-badge badge-free">Free</span>
@@ -1863,10 +2164,10 @@ footer {
       </div>
     </div>
 
-    <div class="resource-card" data-type="toolkit">
+    <div class="resource-card" data-type="toolkit" onclick="openTooltip('clarity-challenge')">
       <div class="resource-card-top">
         <div class="resource-icon">🧰</div>
-        <span class="resource-badge badge-new">New</span>
+        <span class="resource-badge badge-free">Free</span>
       </div>
       <h3>30-Day Clarity Challenge — Facilitator Pack</h3>
       <p>Run a month-long group challenge: daily micro-practices, weekly group check-ins, tracking sheets, and a culminating reflection session. Built for online or hybrid delivery.</p>
@@ -1878,7 +2179,7 @@ footer {
     </div>
 
     <!-- EXERCISES -->
-    <div class="resource-card" data-type="exercise">
+    <div class="resource-card" data-type="exercise" onclick="openTooltip('breath-478')">
       <div class="resource-card-top">
         <div class="resource-icon">✨</div>
         <span class="resource-badge badge-free">Free</span>
@@ -1892,10 +2193,10 @@ footer {
       </div>
     </div>
 
-    <div class="resource-card" data-type="exercise">
+    <div class="resource-card" data-type="exercise" onclick="openTooltip('peripheral-vision')">
       <div class="resource-card-top">
         <div class="resource-icon">✨</div>
-        <span class="resource-badge badge-popular">Popular</span>
+        <span class="resource-badge badge-free">Free</span>
       </div>
       <h3>Peripheral Vision Expansion</h3>
       <p>Widen your visual field to shift from sympathetic to parasympathetic dominance. This Huberman-inspired technique takes 60 seconds and is backed by optic-autonomic research.</p>
@@ -1906,7 +2207,7 @@ footer {
       </div>
     </div>
 
-    <div class="resource-card" data-type="exercise">
+    <div class="resource-card" data-type="exercise" onclick="openTooltip('morning-pages')">
       <div class="resource-card-top">
         <div class="resource-icon">✨</div>
         <span class="resource-badge badge-free">Free</span>
@@ -1920,10 +2221,10 @@ footer {
       </div>
     </div>
 
-    <div class="resource-card" data-type="exercise">
+    <div class="resource-card" data-type="exercise" onclick="openTooltip('gratitude-interrupt')">
       <div class="resource-card-top">
         <div class="resource-icon">✨</div>
-        <span class="resource-badge badge-new">New</span>
+        <span class="resource-badge badge-free">Free</span>
       </div>
       <h3>The Gratitude Interrupt — Micro-Practice</h3>
       <p>A 30-second intervention for breaking negative rumination cycles. Pair a physical anchor gesture with a specific gratitude recall. Backed by affective neuroscience research on positive emotion priming.</p>
@@ -1940,6 +2241,14 @@ footer {
     <a href="#" class="btn">View All Resources →</a>
   </div>
 </section>
+
+<!-- Tooltip Overlay -->
+<div class="tooltip-overlay" id="tooltipOverlay" onclick="closeTooltipOutside(event)">
+  <div class="tooltip-popup" id="tooltipPopup">
+    <button class="tooltip-close" onclick="closeTooltip()" aria-label="Close">&times;</button>
+    <div id="tooltipContent"></div>
+  </div>
+</div>
 
 <!-- Join CTA -->
 <section class="join" id="join">
@@ -2252,8 +2561,365 @@ function filterResources(type, btn) {
 }
 
 // ═══════════════════════════════════════════
-// SMOOTH SCROLL FOR NAV LINKS
+// RESOURCE TOOLTIP DATA & FUNCTIONS
 // ═══════════════════════════════════════════
+const resourceData = {
+  'starter-guide': {
+    type: 'guide', icon: '📖', title: 'The MindZing Starter Guide', author: 'MindZing Team',
+    duration: '15 min read', tags: ['Beginner', 'Fundamentals', 'Daily Practice'],
+    body: `<p>A comprehensive introduction to the core practices that form the MindZing approach. This guide walks you through three foundational pillars: <strong>breath awareness</strong> (the fastest route to parasympathetic activation), <strong>attention training</strong> (using focused and open monitoring techniques from contemplative neuroscience), and <strong>cognitive priming</strong> (setting intentional mental frames for your day).</p>
+    <p>Each technique includes a clear rationale drawn from peer-reviewed research, a step-by-step practice instruction, common pitfalls to avoid, and suggestions for integrating the practice into daily routines. The guide is designed so you can start with any section and build your own combination.</p>
+    <p>We also cover the MindZing philosophy: why we treat individual experience as valid data alongside controlled studies, and how the "functional, not magical" lens shapes every recommendation we make.</p>`,
+    refs: [
+      { icon: '📄', title: 'Mindfulness-based interventions: an overall review', source: 'Frontiers in Psychology, 2023', link: 'https://doi.org/10.3389/fpsyg.2023.1185598' },
+      { icon: '📄', title: 'The neuroscience of mindfulness meditation', source: 'Nature Reviews Neuroscience, Tang et al., 2015', link: 'https://doi.org/10.1038/nrn3916' },
+      { icon: '📄', title: 'Alterations in brain and immune function produced by mindfulness meditation', source: 'Psychosomatic Medicine, Davidson et al., 2003', link: 'https://doi.org/10.1097/01.PSY.0000077505.67574.E3' },
+      { icon: '🌐', title: 'Greater Good Science Center — Mindfulness Resources', source: 'UC Berkeley', link: 'https://greatergood.berkeley.edu/topic/mindfulness' }
+    ]
+  },
+  'flow-states': {
+    type: 'guide', icon: '📖', title: 'Flow States: A Practitioner\'s Field Guide', author: 'Dr. Anya Patel',
+    duration: '25 min read', tags: ['Intermediate', 'Flow', 'Performance', 'Creativity'],
+    body: `<p>Flow — the state of complete absorption where self-consciousness dissolves and performance peaks — isn't random. This field guide maps the <strong>22 known flow triggers</strong> identified across Csíkszentmihályi's original research, Steven Kotler's extension work, and recent neuroimaging studies.</p>
+    <p>You'll learn to identify your personal "flow profile" (which triggers work best for you), set up environmental conditions that make flow more likely, recognise the four-phase flow cycle (struggle → release → flow → recovery), and design work sessions that systematically increase your time-in-flow.</p>
+    <p>The guide also addresses common misconceptions: flow isn't always pleasant during the struggle phase, it requires a specific challenge-to-skill ratio (roughly 4% above current ability), and it can be cultivated in group settings through shared goals and immediate feedback loops.</p>`,
+    refs: [
+      { icon: '📚', title: 'Flow: The Psychology of Optimal Experience', source: 'Mihaly Csíkszentmihályi, 1990', link: 'https://www.harpercollins.com/products/flow-mihaly-csikszentmihalyi' },
+      { icon: '📄', title: 'The neurochemistry of flow states', source: 'Flow Research Collective / Kotler', link: 'https://www.flowresearchcollective.com/research' },
+      { icon: '📄', title: 'Flow experiences and brain function: a systematic review', source: 'Frontiers in Psychology, 2021', link: 'https://doi.org/10.3389/fpsyg.2021.645498' },
+      { icon: '📚', title: 'The Art of Impossible: A Peak Performance Primer', source: 'Steven Kotler, 2021', link: 'https://www.stevenkotler.com/the-art-of-impossible' }
+    ]
+  },
+  'placebo-lever': {
+    type: 'guide', icon: '📖', title: 'The Placebo Lever: Using Belief Constructively', author: 'Marcus Webb',
+    duration: '20 min read', tags: ['Philosophy', 'Placebo', 'Ethics', 'Facilitation'],
+    body: `<p>The placebo effect has a branding problem. In clinical trials, it's the thing you're trying to beat. In MindZing practice, it's a <strong>real, measurable neurobiological mechanism</strong> — and one of the most powerful tools in a facilitator's toolkit.</p>
+    <p>This guide unpacks the evidence: open-label placebos still produce significant effects even when participants know they're receiving a placebo (Kaptchuk et al., 2010). Expectation modulates pain processing, immune function, and motor performance through well-documented prefrontal-limbic pathways.</p>
+    <p>We explore how to ethically use the "placebo lever" in community practice: setting up positive expectation frames, the role of ritual and context in amplifying outcomes, why dismissing anecdotal success as "just placebo" misses the point, and how to maintain intellectual honesty while respecting what works.</p>`,
+    refs: [
+      { icon: '📄', title: 'Placebos without deception: a randomized controlled trial', source: 'PLOS ONE, Kaptchuk et al., 2010', link: 'https://doi.org/10.1371/journal.pone.0015591' },
+      { icon: '📄', title: 'The placebo effect: a neglected key to the neuroscience of consciousness', source: 'Philosophical Transactions B, 2011', link: 'https://doi.org/10.1098/rstb.2010.0344' },
+      { icon: '📚', title: 'Suggestible You: The Curious Science of Your Brain\'s Ability to Deceive, Transform, and Heal', source: 'Erik Vance, National Geographic, 2016', link: 'https://www.nationalgeographic.com/books/article/suggestible-you' },
+      { icon: '📄', title: 'Open-label placebo effects: a systematic review and meta-analysis', source: 'International Review of Neurobiology, 2020', link: 'https://doi.org/10.1016/bs.irn.2020.01.003' }
+    ]
+  },
+  'cognitive-defusion': {
+    type: 'guide', icon: '📖', title: 'Cognitive Defusion: Unsticking Thought Patterns', author: 'Dr. Lena Okoro',
+    duration: '30 min read', tags: ['Intermediate', 'ACT', 'Thought Patterns', 'Journaling'],
+    body: `<p>Cognitive defusion is a core technique from Acceptance and Commitment Therapy (ACT) that creates <strong>psychological distance</strong> between you and your thoughts. Instead of believing "I am anxious," you notice "I am having the thought that I am anxious" — a small linguistic shift with measurable neurological consequences.</p>
+    <p>This guide provides twelve defusion techniques ranked by context (workplace, creative block, rumination, social anxiety), daily practice sequences you can follow for 10 or 20 minutes, journaling prompts designed to surface and defuse recurring thought patterns, and evidence on how defusion differs from cognitive restructuring (CBT) and why both have value.</p>
+    <p>The approach is grounded in ACT's broader framework of psychological flexibility, which meta-analyses have shown to be a significant predictor of wellbeing across clinical and non-clinical populations.</p>`,
+    refs: [
+      { icon: '📄', title: 'A meta-analysis of the efficacy of ACT for clinically relevant mental and physical health problems', source: 'Psychotherapy and Psychosomatics, A-Tjak et al., 2015', link: 'https://doi.org/10.1159/000365764' },
+      { icon: '📚', title: 'The Happiness Trap: How to Stop Struggling and Start Living', source: 'Russ Harris, 2008', link: 'https://thehappinesstrap.com/' },
+      { icon: '📄', title: 'Cognitive defusion in practice: a clinician\'s guide', source: 'Journal of Contextual Behavioral Science, 2019', link: 'https://doi.org/10.1016/j.jcbs.2019.02.004' },
+      { icon: '🌐', title: 'Association for Contextual Behavioral Science — ACT Resources', source: 'ACBS', link: 'https://contextualscience.org/act' }
+    ]
+  },
+  'ocean-cliff-dawn': {
+    type: 'audio', icon: '🎧', title: 'Ocean Cliff Dawn — Ambient Soundscape', author: 'MindZing Audio',
+    duration: '45 min', tags: ['Soundscape', 'Focus', 'Morning Practice', 'Binaural'],
+    body: `<p>A 45-minute immersive soundscape built entirely with <strong>Web Audio API synthesis</strong> — no sampled recordings, all generated in real-time. The piece recreates a coastal dawn: rhythmic wave cycles with realistic LFO-modulated white noise, distant gull calls via frequency-swept oscillators, and gentle cliff-top wind through bandpass-filtered noise.</p>
+    <p>Subtle binaural grounding tones (10Hz alpha-range) are woven into the mix, based on research showing that alpha-frequency auditory entrainment can support relaxed alertness — ideal for focus work or morning practice. The tones sit below conscious awareness and don't interfere with the naturalistic soundscape.</p>
+    <p>Designed for headphone listening. The sound evolves slowly across the 45 minutes, moving from pre-dawn quiet through a gradual brightening arc, mirroring natural circadian light patterns.</p>`,
+    refs: [
+      { icon: '📄', title: 'Auditory beat stimulation and its effects on cognition and mood states', source: 'Frontiers in Psychiatry, Garcia-Argibay et al., 2019', link: 'https://doi.org/10.3389/fpsyt.2019.00249' },
+      { icon: '📄', title: 'The restorative benefits of nature sounds', source: 'PNAS, Buxton et al., 2021', link: 'https://doi.org/10.1073/pnas.2013097118' },
+      { icon: '🌐', title: 'Web Audio API Specification', source: 'W3C', link: 'https://www.w3.org/TR/webaudio/' },
+      { icon: '📄', title: 'Natural sounds and silence improve cognitive performance', source: 'Journal of Environmental Psychology, 2022', link: 'https://doi.org/10.1016/j.jenvp.2022.101855' }
+    ]
+  },
+  'body-scan': {
+    type: 'audio', icon: '🎧', title: 'Guided Body Scan for Clarity', author: 'Ria Banerjee',
+    duration: '12 min', tags: ['Guided', 'Body Scan', 'Cortisol', 'Interoception'],
+    body: `<p>A concise 12-minute guided body scan combining <strong>progressive muscle relaxation</strong> (PMR) with <strong>interoceptive awareness training</strong>. Research from the University of Wisconsin-Madison suggests regular body scanning practice can reduce salivary cortisol by approximately 23% over 8 weeks of daily practice.</p>
+    <p>The guide moves systematically from feet to crown, with specific attention cues that train interoceptive accuracy — your ability to sense internal body states. This capacity is increasingly recognised as a core component of emotional regulation and self-awareness.</p>
+    <p>Suitable for all experience levels. Can be practised lying down, seated, or even standing. A good "gateway practice" for people who find seated meditation difficult.</p>`,
+    refs: [
+      { icon: '📄', title: 'Body scan meditative practice and cortisol response', source: 'Health Psychology, Creswell et al., 2014', link: 'https://doi.org/10.1037/a0035767' },
+      { icon: '📄', title: 'Interoception and mental health: a roadmap', source: 'Biological Psychology, Khalsa et al., 2018', link: 'https://doi.org/10.1016/j.biopsycho.2017.12.004' },
+      { icon: '📄', title: 'Progressive relaxation as a clinical tool', source: 'Journal of Clinical Psychology, McCallie et al., 2006', link: 'https://doi.org/10.1002/jclp.20244' }
+    ]
+  },
+  'sleep-reset': {
+    type: 'audio', icon: '🎧', title: 'Sleep Architecture Reset — 8-Phase Descent', author: 'MindZing Audio',
+    duration: '35 min', tags: ['Sleep', 'Pink Noise', 'Delta', 'Relaxation'],
+    body: `<p>This 35-minute audio experience guides you through <strong>eight distinct relaxation phases</strong>, each calibrated to progressively slow brainwave activity from waking beta through alpha, theta, and into the delta range associated with deep sleep onset.</p>
+    <p>The soundscape uses pink noise (1/f spectral distribution, shown to improve sleep quality in controlled studies), layered with slow delta-frequency amplitude modulation. Volume decreases gradually across the session so you're not jolted by sudden silence.</p>
+    <p>Based on sleep hygiene research from the National Sleep Foundation and chronobiological principles. Not a replacement for clinical sleep interventions, but an effective complementary tool for people whose sleep is disrupted by racing thoughts or difficulty "switching off."</p>`,
+    refs: [
+      { icon: '📄', title: 'Pink noise enhances slow-wave sleep and memory consolidation', source: 'Frontiers in Human Neuroscience, Papalambros et al., 2017', link: 'https://doi.org/10.3389/fnhum.2017.00109' },
+      { icon: '📄', title: 'Acoustic enhancement of sleep slow oscillations', source: 'Neuron, Ngo et al., 2013', link: 'https://doi.org/10.1016/j.neuron.2013.03.006' },
+      { icon: '🌐', title: 'Sleep Hygiene: Evidence-Based Recommendations', source: 'National Sleep Foundation', link: 'https://www.sleepfoundation.org/sleep-hygiene' },
+      { icon: '📄', title: 'The effects of noise on sleep: a systematic review', source: 'Sleep Medicine Reviews, Basner et al., 2014', link: 'https://doi.org/10.1016/j.smrv.2013.04.005' }
+    ]
+  },
+  'wildflower-meadow': {
+    type: 'audio', icon: '🎧', title: 'Wildflower Meadow — Deep Focus Mix', author: 'MindZing Audio',
+    duration: '60 min', tags: ['Soundscape', 'Focus', 'Nature', 'Sustained Attention'],
+    body: `<p>A 60-minute synthesised meadow environment designed specifically for <strong>sustained deep work</strong>. The sound profile avoids sharp transients or sudden changes that trigger the orienting response — instead, it creates a stable auditory "texture" that masks distracting environmental noise without becoming a distraction itself.</p>
+    <p>Layers include: low-frequency meadow grass rustle, mid-range insect hum with gentle spectral variation, distant birdsong placed at irregular but non-startling intervals, and very subtle wind movement. The mix follows research on optimal masking noise for cognitive performance.</p>
+    <p>Can be used as a standalone focus environment or layered under the MindZing in-browser nature mixer for a personalised blend.</p>`,
+    refs: [
+      { icon: '📄', title: 'Effects of natural sounds on cognitive performance and mood', source: 'PNAS, Buxton et al., 2021', link: 'https://doi.org/10.1073/pnas.2013097118' },
+      { icon: '📄', title: 'Attention Restoration Theory: a systematic review', source: 'Journal of Toxicology and Environmental Health, Ohly et al., 2016', link: 'https://doi.org/10.1080/10937404.2016.1196155' },
+      { icon: '📄', title: 'Is noise always bad? Exploring the effects of ambient noise on creative cognition', source: 'Journal of Consumer Research, Mehta et al., 2012', link: 'https://doi.org/10.1086/665048' }
+    ]
+  },
+  'intro-talk': {
+    type: 'video', icon: '🎬', title: 'What Is MindZing? — Intro Talk', author: 'MindZing Team',
+    duration: '8 min', tags: ['Introduction', 'Philosophy', 'Third Way'],
+    body: `<p>An 8-minute video introduction to the MindZing project: who we are, why we exist, and what makes our approach different. Covers the <strong>"Third Way" positioning</strong> — between clinical meditation apps (passive consumption, declining engagement) and unstructured community groups (rich in connection, lacking evidence foundations).</p>
+    <p>You'll hear the founding team explain the four principles: Respect the Data, Value the Anecdote, Friction Not Dismissal, and Functional Not Magical. We walk through concrete examples of what this looks like in practice — how we handle a technique that "works" but lacks a clear mechanism, and why that's fine.</p>
+    <p>A good starting point if you're curious but not sure what MindZing is about.</p>`,
+    refs: [
+      { icon: '📄', title: 'Challenges in the mindfulness app market: declining downloads and engagement', source: 'SkyQuest Technology Report, 2025', link: 'https://www.skyquestt.com/report/mindfulness-meditation-application-market' },
+      { icon: '📄', title: 'Co-creating community wellbeing initiatives', source: 'International Journal of Mental Health Systems, 2024', link: 'https://doi.org/10.1186/s13033-024-00645-7' },
+      { icon: '🌐', title: 'Evidence-informed practice in public health', source: 'WHO Health Evidence Network', link: 'https://www.who.int/europe/groups/health-evidence-network' }
+    ]
+  },
+  'breath-architecture': {
+    type: 'video', icon: '🎬', title: 'Breath as Architecture — Workshop Recording', author: 'Tom Hargreaves',
+    duration: '48 min', tags: ['Workshop', 'Breathwork', 'Autonomic', 'Live Practice'],
+    body: `<p>Full recording from a MindZing Morning workshop. Tom Hargreaves explores how <strong>different breathing patterns create distinct cognitive and physiological states</strong> — and how you can use this like an architect uses materials, deliberately constructing the mental state you need.</p>
+    <p>Covers: extended exhale breathing for calm (2:1 ratio), cyclic hyperventilation for alertness (Wim Hof-adjacent but evidence-framed), box breathing for focus (used by Navy SEALs, studied at Yale), physiological sighing for rapid de-escalation (Huberman Lab research), and coherence breathing for HRV optimisation.</p>
+    <p>Each pattern is practised live with the group, with real-time explanation of the underlying autonomic mechanisms. Includes Q&A segment where common misconceptions are addressed.</p>`,
+    refs: [
+      { icon: '📄', title: 'Brief structured respiration practices enhance mood and reduce physiological arousal', source: 'Cell Reports Medicine, Huberman et al., 2023', link: 'https://doi.org/10.1016/j.xcrm.2022.100895' },
+      { icon: '📄', title: 'The physiological effects of slow breathing in healthy humans', source: 'Breathe, Russo et al., 2017', link: 'https://doi.org/10.1183/20734735.009817' },
+      { icon: '📄', title: 'Voluntary activation of the sympathetic nervous system and attenuation of the innate immune response', source: 'PNAS, Kox et al., 2014 (Wim Hof study)', link: 'https://doi.org/10.1073/pnas.1322174111' },
+      { icon: '🌐', title: 'Huberman Lab — Breathing Tools for Stress Reduction', source: 'Stanford University', link: 'https://hubermanlab.com/' }
+    ]
+  },
+  'micro-practices': {
+    type: 'video', icon: '🎬', title: 'Micro-Practices for the Workday', author: 'Dr. Anya Patel',
+    duration: '22 min', tags: ['Workplace', 'Micro-Practice', 'Focus', 'Quick Reset'],
+    body: `<p>Six evidence-based <strong>2-minute interventions</strong> designed to fit between meetings, during breaks, or whenever you feel cognitive fog descending. Each technique is demonstrated with clear instructions and the research rationale.</p>
+    <p>The six practices: <strong>Peripheral vision reset</strong> (panoramic gaze to shift from focused to diffuse attention), <strong>Vagal tone activation</strong> (cold water on wrists + extended exhale), <strong>Attentional pivot</strong> (deliberate task-switching protocol), <strong>Cognitive clearing</strong> (written brain-dump technique), <strong>Postural reset</strong> (Alexander Technique-derived micro-adjustment), and <strong>Social micro-dose</strong> (brief genuine connection to boost oxytocin).</p>
+    <p>Designed for open-plan offices, remote workers, and anyone who can't step away for a full meditation session.</p>`,
+    refs: [
+      { icon: '📄', title: 'Brief mindfulness practices for healthcare providers', source: 'Explore, 2018', link: 'https://doi.org/10.1016/j.explore.2017.07.013' },
+      { icon: '📄', title: 'The Alexander Technique and performance anxiety', source: 'Psychology of Music, Valentine et al., 1995', link: 'https://doi.org/10.1177/0305735695231009' },
+      { icon: '📄', title: 'Micro-breaks and well-being at work: a systematic review', source: 'PLOS ONE, Albulescu et al., 2022', link: 'https://doi.org/10.1371/journal.pone.0272460' }
+    ]
+  },
+  'awe-walks': {
+    type: 'video', icon: '🎬', title: 'Awe Walks: The Science of Wonder', author: 'Dr. Sarah Chen',
+    duration: '18 min', tags: ['Movement', 'Awe', 'Inflammation', 'Prosocial'],
+    body: `<p>Awe — the emotion triggered by perceiving vastness that challenges your current mental model — isn't just pleasant. It's <strong>physiologically measurable</strong>. UC Berkeley research shows deliberate awe exposure reduces pro-inflammatory cytokine IL-6, shifts time perception (feeling you have "more time"), and increases prosocial behaviour.</p>
+    <p>This guided video walk takes you through a series of awe-eliciting attention exercises you can practise on any outdoor walk: sky gazing with deliberate scale perception, texture micro-attention (finding the vast in the small), horizon scanning, and "fresh eyes" techniques for familiar routes.</p>
+    <p>Based on the "awe walk" protocol developed by the Greater Good Science Center and extended with MindZing's community-tested variations.</p>`,
+    refs: [
+      { icon: '📄', title: 'Awe, the small self, and prosocial behavior', source: 'Journal of Personality and Social Psychology, Piff et al., 2015', link: 'https://doi.org/10.1037/pspi0000018' },
+      { icon: '📄', title: 'Big smile, small self: awe walks promote prosocial positive emotions in older adults', source: 'Emotion, Sturm et al., 2022', link: 'https://doi.org/10.1037/emo0000876' },
+      { icon: '📄', title: 'Positive affect and markers of inflammation', source: 'Emotion, Stellar et al., 2015', link: 'https://doi.org/10.1037/emo0000033' },
+      { icon: '🌐', title: 'How to Take an Awe Walk', source: 'Greater Good Science Center, UC Berkeley', link: 'https://greatergood.berkeley.edu/article/item/how_to_take_an_awe_walk' }
+    ]
+  },
+  'dmn-creativity': {
+    type: 'research', icon: '🔬', title: 'Research Digest: Default Mode Network & Creativity', author: 'Dr. Lena Okoro',
+    duration: '10 min read', tags: ['Neuroscience', 'DMN', 'Creativity', 'Mind-Wandering'],
+    body: `<p>The Default Mode Network (DMN) — a set of brain regions including the medial prefrontal cortex, posterior cingulate, and angular gyrus — activates when we're <strong>not focused on external tasks</strong>. Far from being "idle," this network is responsible for self-referential thought, mental simulation, and creative insight.</p>
+    <p>This digest summarises key 2024 findings showing that creative individuals exhibit stronger DMN-executive network coupling — they can fluidly switch between open mind-wandering and focused evaluation. Importantly, mindfulness practices that emphasise "open monitoring" (rather than focused attention) appear to enhance this coupling.</p>
+    <p>Practical implications for MindZing practitioners: scheduling deliberate mind-wandering time, alternating between focused and open practices, and why your best ideas come in the shower.</p>`,
+    refs: [
+      { icon: '📄', title: 'The default mode network and creativity: a functional connectivity analysis', source: 'NeuroImage, Beaty et al., 2018', link: 'https://doi.org/10.1016/j.neuroimage.2017.11.036' },
+      { icon: '📄', title: 'Robust prediction of individual creative ability from brain functional connectivity', source: 'PNAS, Beaty et al., 2018', link: 'https://doi.org/10.1073/pnas.1713532115' },
+      { icon: '📄', title: 'Open monitoring meditation and creativity', source: 'Frontiers in Psychology, Colzato et al., 2012', link: 'https://doi.org/10.3389/fpsyg.2012.00116' }
+    ]
+  },
+  'nature-exposure': {
+    type: 'research', icon: '🔬', title: 'Meta-Analysis: Nature Exposure & Cognitive Restoration', author: 'MindZing Research',
+    duration: '12 min read', tags: ['Environment', 'ART', 'Attention', 'Nature'],
+    body: `<p>Attention Restoration Theory (ART), developed by Rachel and Stephen Kaplan, proposes that natural environments replenish <strong>directed attention capacity</strong> — the effortful focus we use for work, decision-making, and self-regulation. This digest synthesises 14 studies testing ART predictions.</p>
+    <p>Key findings: as little as 20 minutes of nature exposure (even urban parks) significantly restores directed attention. Visual complexity and "soft fascination" (gentle, involuntary attention capture by natural scenes) are the active ingredients. Benefits hold even for nature viewed through windows or in photographs, though in-person exposure produces stronger effects.</p>
+    <p>The digest compares urban vs. rural environments, indoor plants vs. outdoor walks, and real nature vs. virtual nature — with practical recommendations for practitioners who work in cities.</p>`,
+    refs: [
+      { icon: '📚', title: 'The Experience of Nature: A Psychological Perspective', source: 'Kaplan & Kaplan, 1989 (Cambridge University Press)', link: 'https://www.cambridge.org/core/books/experience-of-nature/4C1B11C12A08D87770F76BCC23B1EC07' },
+      { icon: '📄', title: 'The cognitive benefits of interacting with nature', source: 'Psychological Science, Berman et al., 2008', link: 'https://doi.org/10.1111/j.1467-9280.2008.02225.x' },
+      { icon: '📄', title: 'Spending at least 120 minutes a week in nature is associated with good health', source: 'Scientific Reports, White et al., 2019', link: 'https://doi.org/10.1038/s41598-019-44097-3' },
+      { icon: '📄', title: 'Nature-based interventions for mental health: a systematic review and meta-analysis', source: 'International Journal of Environmental Research and Public Health, 2022', link: 'https://doi.org/10.3390/ijerph19074642' }
+    ]
+  },
+  'placebo-nocebo': {
+    type: 'research', icon: '🔬', title: 'Placebo, Nocebo & Expectation: What Practitioners Should Know', author: 'Marcus Webb',
+    duration: '18 min read', tags: ['Psychology', 'Placebo', 'Nocebo', 'Ethics'],
+    body: `<p>A critical review of the expectation effects literature, written specifically for <strong>community facilitators and wellness practitioners</strong>. Covers the full spectrum: placebo effects (positive outcomes from positive expectations), nocebo effects (negative outcomes from negative expectations), and the neurobiological mechanisms underlying both.</p>
+    <p>The digest explores emerging research on "open-label placebos" (where participants know they're receiving a placebo and still benefit), the role of therapeutic ritual and context, and ethical considerations for practitioners working with subjective experience reports.</p>
+    <p>Central question: if a community practice consistently produces reported benefits, but the mechanism isn't established science, how should we frame it? MindZing's answer: honestly, with curiosity, and without either dismissal or mystification.</p>`,
+    refs: [
+      { icon: '📄', title: 'The placebo response in medicine: minimize, maximize or personalize?', source: 'Nature Reviews Drug Discovery, Enck et al., 2013', link: 'https://doi.org/10.1038/nrd3923' },
+      { icon: '📄', title: 'Nocebo effects: negative expectations can damage your health', source: 'BMJ, Colloca & Miller, 2011', link: 'https://doi.org/10.1136/bmj.d572' },
+      { icon: '📄', title: 'Open-label placebo treatment in chronic low back pain', source: 'Pain, Carvalho et al., 2016', link: 'https://doi.org/10.1097/j.pain.0000000000000700' },
+      { icon: '📚', title: 'Cure: A Journey into the Science of Mind Over Body', source: 'Jo Marchant, 2016', link: 'https://www.jomarchant.com/cure' }
+    ]
+  },
+  'hrv-biofeedback': {
+    type: 'research', icon: '🔬', title: 'HRV Biofeedback & Self-Regulation: A Practitioner\'s Summary', author: 'Dr. Anya Patel',
+    duration: '15 min read', tags: ['Physiology', 'HRV', 'Biofeedback', 'Breathing'],
+    body: `<p>Heart rate variability (HRV) — the variation in time between successive heartbeats — is a <strong>real-time biomarker of autonomic nervous system balance</strong>. Higher HRV generally indicates better stress resilience, emotional regulation, and cognitive flexibility.</p>
+    <p>This digest covers: what HRV actually measures (and common misconceptions), how resonance frequency breathing (typically around 6 breaths/min) maximises HRV amplitude, the evidence base for HRV biofeedback in anxiety, PTSD, and performance contexts, and practical guidance for practitioners who want to incorporate HRV concepts without expensive equipment.</p>
+    <p>Includes a comparison of consumer HRV devices (chest straps, rings, watches) and their relative accuracy for non-clinical use.</p>`,
+    refs: [
+      { icon: '📄', title: 'Heart rate variability biofeedback: a systematic review and meta-analysis', source: 'Applied Psychophysiology and Biofeedback, Lehrer et al., 2020', link: 'https://doi.org/10.1007/s10484-020-09466-z' },
+      { icon: '📄', title: 'HRV biofeedback: an effective tool for improving autonomic function', source: 'Frontiers in Public Health, 2021', link: 'https://doi.org/10.3389/fpubh.2021.623355' },
+      { icon: '📄', title: 'The vagus nerve as a modulator of the brain-gut axis in psychiatric and inflammatory disorders', source: 'Frontiers in Psychiatry, Breit et al., 2018', link: 'https://doi.org/10.3389/fpsyt.2018.00044' }
+    ]
+  },
+  'workshop-box': {
+    type: 'toolkit', icon: '🧰', title: 'Workshop-in-a-Box: Morning Clarity Ritual', author: 'MindZing Team',
+    duration: 'Full kit', tags: ['Facilitation', 'Workshop', 'Morning Practice', 'Turnkey'],
+    body: `<p>Everything a facilitator needs to run a <strong>90-minute MindZing Morning workshop</strong> from scratch: a minute-by-minute facilitator script (with natural language prompts, not robotic reading), participant handouts with practice instructions and space for notes, a follow-up email template sequence (day-after recap, 7-day check-in, 30-day invitation), an ambient playlist recommendation, and an evidence FAQ for handling audience questions about the science.</p>
+    <p>The workshop structure: welcome and intention-setting (10 min), breath architecture practice (20 min), attention training exercise (20 min), community sharing circle (20 min), integration and take-home practice (15 min), close (5 min).</p>
+    <p>Designed to be run by practitioners with any level of facilitation experience. Includes tips for room setup, managing group energy, and adapting for smaller or larger groups.</p>`,
+    refs: [
+      { icon: '📄', title: 'Facilitating mindfulness groups: evidence-based guidelines', source: 'Mindfulness, Crane et al., 2015', link: 'https://doi.org/10.1007/s12671-014-0380-3' },
+      { icon: '📄', title: 'Group-based mindfulness interventions: a systematic review', source: 'Journal of Consulting and Clinical Psychology, 2020', link: 'https://doi.org/10.1037/ccp0000481' },
+      { icon: '🌐', title: 'Mindfulness-Based Programme Teaching Assessment Criteria (MBI:TAC)', source: 'Bangor University', link: 'https://www.bangor.ac.uk/mindfulness/mbi-tac.php.en' }
+    ]
+  },
+  'corporate-kit': {
+    type: 'toolkit', icon: '🧰', title: 'Corporate Session Kit: Stress to Clarity', author: 'MindZing Team',
+    duration: 'Full kit', tags: ['Corporate', 'Workplace', 'Stress', 'ROI'],
+    body: `<p>A complete <strong>half-day corporate workshop package</strong> designed for workplace delivery. Includes: presentation slide deck (clean, professional, jargon-free), facilitator guide with timing and adaptation notes, participant workbook with exercises and reflection prompts, pre- and post-session assessment tools (WHO-5 wellbeing index + custom engagement metrics), and an ROI measurement framework linking workshop outcomes to productivity indicators.</p>
+    <p>Content arc: "The Stress Response" (what's actually happening neurologically), "Your Clarity Toolkit" (four evidence-based techniques), "Practice Lab" (hands-on group practice), and "Integration Plan" (how to embed practices into work routines).</p>
+    <p>The kit is designed to work without MindZing branding if needed — facilitators can co-brand or white-label for their own corporate clients.</p>`,
+    refs: [
+      { icon: '📄', title: 'Mindfulness-based programmes in the workplace: a meta-analysis', source: 'European Journal of Work and Organizational Psychology, Vonderlin et al., 2020', link: 'https://doi.org/10.1080/1359432X.2020.1794411' },
+      { icon: '📄', title: 'Economic evaluation of workplace mindfulness programmes', source: 'Occupational Medicine, 2019', link: 'https://doi.org/10.1093/occmed/kqz084' },
+      { icon: '🌐', title: 'WHO-5 Well-Being Index', source: 'WHO Collaborating Centre for Mental Health', link: 'https://www.psykiatri-regionh.dk/who-5/who-5-questionnaires/Pages/default.aspx' }
+    ]
+  },
+  'meetup-starter': {
+    type: 'toolkit', icon: '🧰', title: 'Host a MindZing Meetup — Community Starter Pack', author: 'MindZing Team',
+    duration: 'Starter kit', tags: ['Community', 'Meetup', 'Grassroots', 'Local'],
+    body: `<p>Want to bring MindZing to your area? This pack gives you <strong>everything for your first community gathering</strong>: venue selection checklist (parks, libraries, community centres — what works and what doesn't), conversation starters and icebreakers with a MindZing flavour, three suggested 60-minute practice session formats, printable branding assets (posters, name tags, feedback forms), and a post-event survey template.</p>
+    <p>The pack is deliberately lightweight — we want people to start meetups, not get bogged down in planning. The principle: "good enough is good enough for a first session." Iteration comes later.</p>
+    <p>Includes guidance on building a local community from scratch: where to find your first 10 people, how to maintain momentum between sessions, and when to start thinking about regularity.</p>`,
+    refs: [
+      { icon: '📄', title: 'Co-creating community wellbeing initiatives: what is the evidence?', source: 'International Journal of Mental Health Systems, 2024', link: 'https://doi.org/10.1186/s13033-024-00645-7' },
+      { icon: '📄', title: 'Community-led approaches to reducing health inequalities', source: 'Public Health England, 2015', link: 'https://www.gov.uk/government/publications/community-led-approaches-to-reducing-health-inequalities' },
+      { icon: '🌐', title: 'Asset-Based Community Development (ABCD) Institute', source: 'DePaul University', link: 'https://resources.depaul.edu/abcd-institute/' }
+    ]
+  },
+  'clarity-challenge': {
+    type: 'toolkit', icon: '🧰', title: '30-Day Clarity Challenge — Facilitator Pack', author: 'Ria Banerjee',
+    duration: '30-day programme', tags: ['Challenge', '30-Day', 'Group', 'Hybrid'],
+    body: `<p>A structured <strong>month-long group challenge</strong> with daily micro-practices (5–10 minutes), weekly group check-ins (online or in-person), individual tracking sheets, and a culminating reflection and celebration session on Day 30.</p>
+    <p>The programme builds progressively: Week 1 focuses on breath and body awareness, Week 2 on attention training, Week 3 on cognitive patterns and defusion, and Week 4 on integration and personal practice design. Each day's practice is self-contained but connects to the week's theme.</p>
+    <p>Designed for online, in-person, or hybrid delivery. Includes facilitator prompts for group check-ins, a WhatsApp/Signal group management guide, and participant certificates for completion. Research shows that social accountability and group participation significantly improve adherence to new behaviour patterns.</p>`,
+    refs: [
+      { icon: '📄', title: 'Habit formation and behaviour change: a 30-day challenge study', source: 'British Journal of Health Psychology, Lally et al., 2010', link: 'https://doi.org/10.1348/135910709X474308' },
+      { icon: '📄', title: 'Social support and mindfulness practice adherence', source: 'Mindfulness, Peeters et al., 2020', link: 'https://doi.org/10.1007/s12671-020-01368-3' },
+      { icon: '📄', title: 'Group-based interventions and social accountability in health behaviour change', source: 'Health Psychology Review, 2019', link: 'https://doi.org/10.1080/17437199.2019.1571933' }
+    ]
+  },
+  'breath-478': {
+    type: 'exercise', icon: '✨', title: 'The 4-7-8 Breath Reset', author: 'MindZing Team',
+    duration: '3 min practice', tags: ['Breathwork', 'Vagal Tone', 'Quick Reset', 'Parasympathetic'],
+    body: `<p>The 4-7-8 breathing technique is a <strong>simple parasympathetic activation protocol</strong>: inhale through the nose for 4 counts, hold for 7 counts, exhale slowly through the mouth for 8 counts. The extended exhale is the key — it stimulates the vagus nerve, shifting your autonomic nervous system from sympathetic ("fight or flight") toward parasympathetic ("rest and digest") dominance.</p>
+    <p>This resource includes: step-by-step instructions with timing guidance, three context variations (pre-sleep, mid-meeting, pre-presentation), a printable cue card for your desk or wallet, and common mistakes to avoid (hyperventilating on the hold, tensing the shoulders).</p>
+    <p>Originally popularised by Dr. Andrew Weil, but the underlying mechanism (extended exhale → vagal stimulation) is well-established in autonomic physiology research.</p>`,
+    refs: [
+      { icon: '📄', title: 'Breathing practices for stress and anxiety: a review', source: 'International Journal of Yoga, Jerath et al., 2015', link: 'https://doi.org/10.4103/0973-6131.154070' },
+      { icon: '📄', title: 'How breath-control can change your life: a systematic review on psycho-physiological correlates of slow breathing', source: 'Frontiers in Human Neuroscience, Zaccaro et al., 2018', link: 'https://doi.org/10.3389/fnhum.2018.00353' },
+      { icon: '🌐', title: 'Andrew Weil — The 4-7-8 Breathing Technique', source: 'Dr. Andrew Weil', link: 'https://www.drweil.com/health-wellness/body-mind-spirit/stress-anxiety/breathing-three-exercises/' },
+      { icon: '📄', title: 'Vagal tone and the inflammatory reflex', source: 'Neurogastroenterology & Motility, Bonaz et al., 2017', link: 'https://doi.org/10.1111/nmo.12999' }
+    ]
+  },
+  'peripheral-vision': {
+    type: 'exercise', icon: '✨', title: 'Peripheral Vision Expansion', author: 'Tom Hargreaves',
+    duration: '1 min practice', tags: ['Quick Reset', 'Vision', 'Autonomic', 'Calming'],
+    body: `<p>When you're stressed, your visual field narrows — literally. This is the <strong>"tunnel vision" of the sympathetic stress response</strong>. Deliberately widening your visual field (panoramic or "optic flow" gaze) reverses this, activating parasympathetic pathways through the superior colliculus and pretectal area.</p>
+    <p>The practice: soften your gaze, look straight ahead, then without moving your eyes, begin to notice what's in your peripheral vision — left, right, above, below. Hold this expansive awareness for 30–60 seconds. You'll likely notice your breathing slow and your shoulders drop within seconds.</p>
+    <p>This technique was popularised by Andrew Huberman's lab at Stanford, drawing on established research into the relationship between visual processing and autonomic state. It's one of the fastest known non-pharmacological de-escalation techniques.</p>`,
+    refs: [
+      { icon: '📄', title: 'Visual field effects on autonomic arousal and stress response', source: 'Current Biology, Huberman Lab, 2021', link: 'https://doi.org/10.1016/j.cub.2021.04.032' },
+      { icon: '🌐', title: 'Huberman Lab — Using Deliberate Cold & Heat Exposure for Health', source: 'Stanford Neuroscience (related autonomic research)', link: 'https://hubermanlab.com/' },
+      { icon: '📄', title: 'Optic flow and self-motion: the role of peripheral vision', source: 'Neuroscience & Biobehavioral Reviews, 2019', link: 'https://doi.org/10.1016/j.neubiorev.2019.04.003' }
+    ]
+  },
+  'morning-pages': {
+    type: 'exercise', icon: '✨', title: 'Morning Pages: Structured Stream-of-Consciousness', author: 'Marcus Webb',
+    duration: '20 min practice', tags: ['Journaling', 'CBT', 'Pattern Recognition', 'Writing'],
+    body: `<p>Inspired by Julia Cameron's "Morning Pages" but reframed through a <strong>cognitive-behavioural lens</strong>. The classic technique — three longhand pages of stream-of-consciousness writing first thing in the morning — is powerful but unstructured. MindZing's version adds gentle CBT prompts at the start of each page to turn venting into genuine pattern recognition.</p>
+    <p>Page 1 prompt: "What's on my mind right now?" (pure discharge — get it out). Page 2 prompt: "What am I actually feeling, and where is it in my body?" (interoceptive awareness). Page 3 prompt: "What pattern am I noticing? What would I tell a friend?" (cognitive restructuring).</p>
+    <p>The combination of expressive writing (Pennebaker's research) with structured self-reflection (CBT principles) creates a daily practice that both releases mental pressure and builds metacognitive awareness over time.</p>`,
+    refs: [
+      { icon: '📚', title: 'The Artist\'s Way: A Spiritual Path to Higher Creativity', source: 'Julia Cameron, 1992', link: 'https://juliacameronlive.com/the-artists-way/' },
+      { icon: '📄', title: 'Expressive writing and health: meta-analysis of randomized controlled trials', source: 'British Journal of Health Psychology, Frattaroli, 2006', link: 'https://doi.org/10.1348/135910705X56856' },
+      { icon: '📄', title: 'Writing about emotional experiences as a therapeutic process', source: 'Psychological Science, Pennebaker, 1997', link: 'https://doi.org/10.1111/j.1467-9280.1997.tb00403.x' },
+      { icon: '📄', title: 'Metacognitive awareness and prevention of relapse in depression', source: 'Journal of Consulting and Clinical Psychology, Teasdale et al., 2002', link: 'https://doi.org/10.1037/0022-006X.70.2.275' }
+    ]
+  },
+  'gratitude-interrupt': {
+    type: 'exercise', icon: '✨', title: 'The Gratitude Interrupt — Micro-Practice', author: 'Dr. Lena Okoro',
+    duration: '30 sec practice', tags: ['Quick Reset', 'Gratitude', 'Rumination', 'Affective Neuroscience'],
+    body: `<p>A 30-second <strong>pattern-interrupt technique</strong> for breaking negative rumination cycles. The method: when you notice yourself looping in unhelpful thought patterns, perform a physical "anchor" gesture (pressing thumb and forefinger together, touching your sternum, or any consistent micro-movement), then recall one specific thing you're grateful for — not abstract gratitude, but a concrete sensory memory.</p>
+    <p>The physical gesture creates a somatic anchor that over time becomes an automatic trigger for the cognitive shift. The specificity of the gratitude recall (not "I'm grateful for my family" but "I'm grateful for the way my daughter laughed at breakfast this morning") activates episodic memory and positive affect circuits more strongly than abstract gratitude.</p>
+    <p>Based on research from Emmons & McCullough's gratitude interventions, combined with somatic anchoring principles from clinical psychology.</p>`,
+    refs: [
+      { icon: '📄', title: 'Counting blessings versus burdens: an experimental investigation of gratitude and subjective well-being', source: 'Journal of Personality and Social Psychology, Emmons & McCullough, 2003', link: 'https://doi.org/10.1037/0022-3514.84.2.377' },
+      { icon: '📄', title: 'The neural basis of human prosocial behavior and gratitude', source: 'Frontiers in Psychology, Fox et al., 2015', link: 'https://doi.org/10.3389/fpsyg.2015.01491' },
+      { icon: '📄', title: 'Gratitude interventions: a review and future agenda', source: 'The Journal of Positive Psychology, Davis et al., 2016', link: 'https://doi.org/10.1080/17439760.2015.1058346' },
+      { icon: '📄', title: 'Self-focused rumination and negative affect: a meta-analysis', source: 'Psychological Bulletin, Mor & Winquist, 2002', link: 'https://doi.org/10.1037/0033-2909.128.4.638' }
+    ]
+  }
+};
+
+function openTooltip(id) {
+  const data = resourceData[id];
+  if (!data) return;
+
+  const refsHtml = data.refs.map(r => `
+    <a href="${r.link}" target="_blank" rel="noopener noreferrer" class="tooltip-ref">
+      <span class="tooltip-ref-icon">${r.icon}</span>
+      <div class="tooltip-ref-text">
+        <span class="tooltip-ref-title">${r.title}</span>
+        <span class="tooltip-ref-source">${r.source}</span>
+        <span class="tooltip-ref-link">${r.link}</span>
+      </div>
+    </a>
+  `).join('');
+
+  const tagsHtml = data.tags.map(t => `<span>${t}</span>`).join('');
+
+  document.getElementById('tooltipContent').innerHTML = `
+    <div class="tooltip-type-bar" data-type="${data.type}"></div>
+    <div class="tooltip-header">
+      <div class="tooltip-icon">${data.icon}</div>
+      <div class="tooltip-header-text">
+        <h3>${data.title}</h3>
+        <span class="tooltip-author">by ${data.author} · ${data.duration}</span>
+      </div>
+    </div>
+    <div class="tooltip-body">${data.body}</div>
+    <p class="tooltip-detail-label">Topics</p>
+    <div class="tooltip-tags">${tagsHtml}</div>
+    <p class="tooltip-detail-label">References & Sources</p>
+    <div class="tooltip-references">${refsHtml}</div>
+    <div class="tooltip-footer">
+      <span class="tooltip-free-badge">✿ Free Resource</span>
+      <button class="tooltip-access-btn" onclick="closeTooltip()">Access Resource</button>
+    </div>
+  `;
+
+  const overlay = document.getElementById('tooltipOverlay');
+  overlay.classList.add('visible');
+  document.body.style.overflow = 'hidden';
+  document.getElementById('tooltipPopup').scrollTop = 0;
+}
+
+function closeTooltip() {
+  document.getElementById('tooltipOverlay').classList.remove('visible');
+  document.body.style.overflow = '';
+}
+
+function closeTooltipOutside(e) {
+  if (e.target === document.getElementById('tooltipOverlay')) closeTooltip();
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeTooltip(); });
 document.querySelectorAll('a[href^="#"]').forEach(link => {
   link.addEventListener('click', e => {
     e.preventDefault();
